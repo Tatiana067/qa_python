@@ -1,6 +1,9 @@
 from main import BooksCollector
 
 
+import pytest
+
+
 class TestBooksCollector:
 
     def test_init_books_genre_is_empty_dictionary(self):
@@ -61,6 +64,47 @@ class TestBooksCollector:
 
         assert collector.get_book_genre(name) == book_genre
 
+    def test_get_books_with_specific_genre_successful_conclusion(self):
+        collector = BooksCollector()
+        result = collector.get_books_with_specific_genre('Детективы')
 
-        
-    
+        assert result == ['Кто украл лопату у кота']
+
+    def test_get_books_genre_successful_conclision(self):
+        collector = BooksCollector()
+        result = collector.get_books_genre()
+
+        assert result == {'Кто украл лопату у кота': 'Детективы'}
+
+    def test_get_books_for_children_age_rating(self):
+        collector = BooksCollector()
+
+        collector.books_genre['Дневник кота, которого случайно отправили на Марс'] = 'Фантастика'
+        result = collector.get_books_for_children()
+
+        assert result == ['Дневник кота, которого случайно отправили на Марс']
+
+    def test_add_book_in_favorites_successful_addition(self):
+        collector = BooksCollector()
+        collector.books_genre['Кто украл лопату у кота'] = 'Детективы'
+
+        collector.add_book_in_favorites('Кто украл лопату у кота')
+
+        assert collector.favorites == ['Кто украл лопату у кота']
+
+    def test_delete_book_from_favorites_successful_deletion(self):
+        collector = BooksCollector()
+        collector.favorites = ['Кто украл лопату у кота', 'Дневник кота, которого случайно отправили на Марс']
+
+        collector.delete_book_from_favorites('Кто украл лопату у кота')
+
+        assert collector.favorites == ['Дневник кота, которого случайно отправили на Марс']
+
+    def test_get_list_of_favorites_books_successful_list(self):
+        collector = BooksCollector()
+
+        collector.favorites = ['Дневник кота, которого случайно отправили на Марс']
+
+        result = collector.get_list_of_favorites_books()
+        assert result == ['Дневник кота, которого случайно отправили на Марс']
+            
