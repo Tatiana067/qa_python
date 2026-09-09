@@ -81,7 +81,7 @@ class TestBooksCollector:
 
         collector.add_new_book(name)
         collector.set_book_genre(name, 'Комедии')
-        result = collector.get_books_genre()
+        result = collector.get_books_with_genres()
 
         assert result == {name: 'Комедии'}
 
