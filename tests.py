@@ -78,7 +78,7 @@ class TestBooksCollector:
 
     def test_get_books_genre_successful_conclision(self):
         collector = BooksCollector()
-        name = 'Как я завёл человека, и что из этого вышло'
+        name = 'Кот завёл человека и что из этого вышло'
 
         collector.add_new_book(name)
         collector.set_book_genre(name, 'Комедии')
@@ -88,11 +88,11 @@ class TestBooksCollector:
 
     def test_get_books_for_children_age_rating(self):
         collector = BooksCollector()
-        collector.books_genre['Дневник кота, которого случайно отправили на Марс'] = 'Фантастика'
+        collector.books_genre['Дневник кота, которого отправили на Марс'] = 'Фантастика'
 
         result = collector.get_books_for_children()
 
-        assert result == ['Дневник кота, которого случайно отправили на Марс']
+        assert result == ['Дневник кота, которого отправили на Марс']
 
     def test_add_book_in_favorites_successful_addition(self):
         collector = BooksCollector()
@@ -104,18 +104,18 @@ class TestBooksCollector:
 
     def test_delete_book_from_favorites_successful_deletion(self):
         collector = BooksCollector()
-        collector.favorites = ['Кто украл лопату у кота', 'Дневник кота, которого случайно отправили на Марс']
+        collector.favorites = ['Кто украл лопату у кота', 'Дневник кота, которого отправили на Марс']
 
         collector.delete_book_from_favorites('Кто украл лопату у кота')
 
-        assert collector.favorites == ['Дневник кота, которого случайно отправили на Марс']
+        assert collector.favorites == ['Дневник кота, которого отправили на Марс']
 
     def test_get_list_of_favorites_books_successful_list(self):
         collector = BooksCollector()
 
-        collector.favorites = ['Дневник кота, которого случайно отправили на Марс']
+        collector.favorites = ['Дневник кота, которого отправили на Марс']
 
         result = collector.get_list_of_favorites_books()
         
-        assert result == ['Дневник кота, которого случайно отправили на Марс']
+        assert result == ['Дневник кота, которого отправили на Марс']
             
