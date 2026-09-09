@@ -88,7 +88,8 @@ class TestBooksCollector:
 
     def test_get_books_for_children_age_rating(self):
         collector = BooksCollector()
-        collector.books_genre['Дневник кота, которого отправили на Марс'] = 'Фантастика'
+        collector.add_new_book('Дневник кота, которого отправили на Марс')
+        collector.set_book_genre('Дневник кота, которого отправили на Марс', 'Фантастика')
 
         result = collector.get_books_for_children()
 
@@ -96,7 +97,7 @@ class TestBooksCollector:
 
     def test_add_book_in_favorites_successful_addition(self):
         collector = BooksCollector()
-        collector.books_genre['Кто украл лопату у кота'] = 'Детективы'
+        collector.add_new_book('Кто украл лопату у кота')
 
         collector.add_book_in_favorites('Кто украл лопату у кота')
 
@@ -104,7 +105,11 @@ class TestBooksCollector:
 
     def test_delete_book_from_favorites_successful_deletion(self):
         collector = BooksCollector()
-        collector.favorites = ['Кто украл лопату у кота', 'Дневник кота, которого отправили на Марс']
+        collector.add_new_book('Кто украл лопату у кота')
+        collector.add_new_book('Дневник кота, которого отправили на Марс')
+
+        collector.add_book_in_favorites('Кто украл лопату у кота')
+        collector.add_book_in_favorites('Дневник кота, которого отправили на Марс')
 
         collector.delete_book_from_favorites('Кто украл лопату у кота')
 
@@ -113,7 +118,8 @@ class TestBooksCollector:
     def test_get_list_of_favorites_books_successful_list(self):
         collector = BooksCollector()
 
-        collector.favorites = ['Дневник кота, которого отправили на Марс']
+        collector.add_new_book('Дневник кота, которого отправили на Марс')
+        collector.add_book_in_favorites('Дневник кота, которого отправили на Марс')
 
         result = collector.get_list_of_favorites_books()
         
