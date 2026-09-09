@@ -20,13 +20,13 @@ class TestBooksCollector:
         collector = BooksCollector()
         available_genres = ['Фантастика', 'Ужасы', 'Детективы', 'Мультфильмы', 'Комедии']
 
-        assert collector.get_genres == available_genres
+        assert collector.genre == available_genres
 
     def test_init_genre_age_rating_contains_restricted_genres(self):
         collector = BooksCollector()
         restricted_genres = ['Ужасы', 'Детективы']
 
-        assert collector.get_genre_age_rating == restricted_genres
+        assert collector.genre_age_rating == restricted_genres
 
     @pytest.mark.parametrize('name', ['','a','a*40','a*41'])
     def test_add_new_book_name_book_title_contains_from_1_to_40_characters(self, name):
@@ -40,10 +40,11 @@ class TestBooksCollector:
 
     def test_add_new_book_can_be_added_only_once(self):
         collector = BooksCollector()
-        collector.name = 'Кто украл лопату у кота'
-        collector.add_new_book('Кто украл лопату у кота')
+        name = 'Кто украл лопату у кота'
+        collector.add_new_book(name)
+        collector.add_new_book(name)
 
-        assert len(collector.get_books_rating()) == 1
+        assert len(collector.get_books_genre()) == 1
 
     def test_set_book_genre_determines_the_genre_of_the_book(self):
         collector = BooksCollector()
@@ -66,15 +67,23 @@ class TestBooksCollector:
 
     def test_get_books_with_specific_genre_successful_conclusion(self):
         collector = BooksCollector()
-        result = collector.get_books_with_specific_genre('Детективы')
+        name = 'Кот из Ада: Мурчание на улице Вязов'
+        collector.add_new_book(name)
 
-        assert result == ['Кто украл лопату у кота']
+        collector.set_book_genre(name, 'Ужасы')
+        result = collector.get_books_with_specific_genre('Ужасы')
+
+        assert result == [name]
 
     def test_get_books_genre_successful_conclision(self):
         collector = BooksCollector()
+        name = 'Как я завёл человека, и что из этого вышло'
+
+        collector.add_new_book(name)
+        collector.set_book_genre(name, 'Комедии')
         result = collector.get_books_genre()
 
-        assert result == {'Кто украл лопату у кота': 'Детективы'}
+        assert result == {name: 'Комедии'}
 
     def test_get_books_for_children_age_rating(self):
         collector = BooksCollector()
