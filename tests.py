@@ -58,19 +58,20 @@ class TestBooksCollector:
     def test_get_book_genre_determine_the_genre_based_on_the_books_title(self):
         collector = BooksCollector()
         name = 'Кто украл лопату у кота'
-        book_genre = 'Детективы'
+        books_genre = 'Детективы'
 
         collector.add_new_book(name)
-        collector.set_book_genre(name, book_genre)
+        collector.set_book_genre(name, books_genre)
 
-        assert collector.get_book_genre(name) == book_genre
+        assert collector.get_book_genre(name) == books_genre
 
     def test_get_books_with_specific_genre_successful_conclusion(self):
         collector = BooksCollector()
         name = 'Кот из Ада: Мурчание на улице Вязов'
-        collector.add_new_book(name)
 
+        collector.add_new_book(name)
         collector.set_book_genre(name, 'Ужасы')
+
         result = collector.get_books_with_specific_genre('Ужасы')
 
         assert result == [name]
@@ -81,14 +82,14 @@ class TestBooksCollector:
 
         collector.add_new_book(name)
         collector.set_book_genre(name, 'Комедии')
-        result = collector.get_books_with_genres()
+        result = collector.get_book_genre()
 
         assert result == {name: 'Комедии'}
 
     def test_get_books_for_children_age_rating(self):
         collector = BooksCollector()
-
         collector.books_genre['Дневник кота, которого случайно отправили на Марс'] = 'Фантастика'
+
         result = collector.get_books_for_children()
 
         assert result == ['Дневник кота, которого случайно отправили на Марс']
